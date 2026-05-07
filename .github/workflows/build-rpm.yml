@@ -9,6 +9,7 @@ on:
     paths:
       - "specs/**"
       - "graph.yml"
+  workflow_dispatch:
 
 jobs:
   rpm:
