@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+
 %global commit      4112d352914742ba69f6380fd07984adba02d376
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global snapdate    20260322

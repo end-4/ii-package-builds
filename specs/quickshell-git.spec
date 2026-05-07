@@ -1,5 +1,5 @@
 # Original-Spec: https://copr-dist-git.fedorainfracloud.org/packages/errornointernet/quickshell/quickshell-git.git/plain/quickshell-git.spec?h=master
-
+%global debug_package %{nil}
 %bcond_with         asan
 
 %global commit      7511545ee20664e3b8b8d3322c0ffe7567c56f7a
