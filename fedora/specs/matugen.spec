@@ -6,7 +6,7 @@
 %global tag         4.1.0
 
 Name:               matugen
-Version:            %{tag}.%{shortcommit}
+Version:            %{tag}
 Release:            0%{?dist}
 Summary:            A cross-platform material you and base16 color generation tool
 
