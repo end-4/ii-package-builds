@@ -17,9 +17,9 @@ Source0:        %{url}/archive/%{commit}/cpptrace-%{shortcommit}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  make
-# BuildRequires:  git
 BuildRequires:  ninja-build
-BuildRequires:  libunwind-devel
+BuildRequires:  pkgconfig(libdwarf)
+BuildRequires:  pkgconfig(libunwind)
 
 %description
 C++ lightweight logging library used by Quickshell.

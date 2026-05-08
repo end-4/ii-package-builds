@@ -90,5 +90,5 @@ jobs:
         with:
           allowUpdates: true
           tag: "packages"
-          artifacts: "./*/*.rpm"
+          artifacts: "~/rpmbuild/RPMS/**/*.rpm"
           token: ${{ secrets.GITHUB_TOKEN }}
