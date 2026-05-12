@@ -2,11 +2,11 @@
 %global debug_package %{nil}
 %bcond_with         asan
 
-%global commit      7511545ee20664e3b8b8d3322c0ffe7567c56f7a
+%global commit      7d1c9a9c6721606b129829134d6f614f015621e2
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commits     770
-%global snapdate    20260327
-%global tag         0.2.1
+%global commits     818
+%global snapdate    20260511
+%global tag         0.3.0
 
 Name:               quickshell-git
 Version:            %{tag}^%{commits}.git%{shortcommit}
@@ -18,6 +18,7 @@ URL:                https://github.com/quickshell-mirror/quickshell
 Source0:            %{url}/archive/%{commit}/quickshell-%{shortcommit}.tar.gz
 
 Conflicts:          quickshell <= %{tag}
+
 
 %if 0%{fedora} >= 43
 BuildRequires:      breakpad-static
@@ -95,6 +96,8 @@ Wayland and X11.
 %install
 %cmake_install
 
+
+
 %files
 %license LICENSE
 %license LICENSE-GPL
@@ -104,9 +107,14 @@ Wayland and X11.
 %doc changelog/v%{tag}.md
 %{_bindir}/qs
 %{_bindir}/quickshell
+
+
 %{_datadir}/applications/org.quickshell.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.quickshell.svg
 %{_libdir}/qt6/qml/Quickshell
+
+
+
 
 %changelog
 %autochangelog
