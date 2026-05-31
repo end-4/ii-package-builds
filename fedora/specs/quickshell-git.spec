@@ -44,30 +44,6 @@ BuildRequires:      cpptrace
 BuildRequires:      qt6-qtbase-private-devel
 BuildRequires:      spirv-tools
 
-Requires: qt6-qtdeclarative
-Requires: qt6-qtbase
-Requires: jemalloc
-Requires: qt6-qtsvg
-Requires: pipewire-libs
-Requires: libxcb
-Requires: wayland-devel
-Requires: qt6-qtwayland
-Requires: qt5-qtwayland
-Requires: libdrm
-Requires: breakpad
-Requires: kf6-kirigami
-Requires: libunwind-devel
-Requires: qt6-qt5compat
-Requires: qt6-qtimageformats
-Requires: qt6-qtpositioning
-Requires: qt6-qtquicktimeline
-Requires: qt6-qtsensors
-Requires: qt6-qttools
-Requires: qt6-qttranslations
-Requires: qt6-qtvirtualkeyboard
-Requires: kdialog
-Requires: kf6-syntax-highlighting
-
 %if %{with asan}
 BuildRequires:      libasan
 %endif
