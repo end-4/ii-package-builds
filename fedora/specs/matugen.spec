@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:               matugen
-Version:        4.1.0
-Release:        202605310207%{?dist}
+Version:        4.2.0
+Release:        202608180031%{?dist}
 Summary:            A cross-platform material you and base16 color generation tool
 
 License:            GPL-2.0
