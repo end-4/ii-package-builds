@@ -1,18 +1,13 @@
 %global debug_package %{nil}
 
-%global commit      4112d352914742ba69f6380fd07984adba02d376
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapdate    20260322
-%global tag         4.1.0
-
 Name:               matugen
-Version:            %{tag}
-Release:            0%{?dist}
+Version:        4.2.0
+Release:        202608180031%{?dist}
 Summary:            A cross-platform material you and base16 color generation tool
 
 License:            GPL-2.0
 URL:                https://github.com/InioX/matugen
-Source0:            %{url}/archive/%{commit}/matugen-%{shortcommit}.tar.gz
+Source0:            %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  rust-packaging
 BuildRequires:  cargo
@@ -22,7 +17,7 @@ BuildRequires:  gcc
 A cross-platform material you and base16 color generation tool
 
 %prep
-%autosetup -n matugen-%{commit} -p1
+%autosetup -n %{name}-%{version} -p1
 
 %build
 cargo build --release

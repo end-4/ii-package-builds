@@ -6,7 +6,6 @@ on:
       - "fedora/specs/**"
       - "fedora/graph.yml"
   workflow_dispatch:
-
 jobs:
   rpm:
     runs-on: ubuntu-latest

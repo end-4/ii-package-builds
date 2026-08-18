@@ -5,3 +5,5 @@ dependencies: # dependencies will be built and put to local repo
 packages: # packages will be built and installed
   - quickshell-git
   - matugen
+  - kitty
+  

@@ -1,0 +1,94 @@
+name: Update COPR Spec Versions
+#originally from https://github.com/MVN123123123123123/hyprlandRPM
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-specs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Check upstreams and update specs
+        run: |
+          # Set up git right away
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          CHANGES_MADE=0
+
+          # --- MODIFY THIS ARRAY ---
+          # Format: "upstream_owner/upstream_repo|path/to/subdirectory/package.spec"
+          TARGETS=(
+          "kovidgoyal/kitty|fedora/specs/kitty.spec"
+          "InioX/matugen|fedora/specs/matugen.spec"
+          )
+
+          # Loop through each target
+          for TARGET in "${TARGETS[@]}"; do
+            # Split the string by the '|' character
+            IFS='|' read -r UPSTREAM_REPO SPEC_FILE <<< "$TARGET"
+            
+            echo "----------------------------------------"
+            echo "Checking: $SPEC_FILE"
+            
+            # Check if the spec file actually exists in that subdirectory
+            if [ ! -f "$SPEC_FILE" ]; then
+              echo "⚠️  Warning: File $SPEC_FILE not found! Skipping..."
+              continue
+            fi
+
+            # Fetch the latest release tag
+            LATEST_TAG=$(curl -sL "https://api.github.com/repos/$UPSTREAM_REPO/releases/latest" | jq -r .tag_name)
+            
+            # Safety check for API limits or missing releases
+            if [ "$LATEST_TAG" == "null" ] || [ -z "$LATEST_TAG" ]; then
+              echo "⚠️  Warning: Could not fetch latest release for $UPSTREAM_REPO. Skipping..."
+              continue
+            fi
+
+            LATEST_VERSION=${LATEST_TAG#v}
+            CURRENT_VERSION=$(grep -E "^Version:\s+" "$SPEC_FILE" | awk '{print $2}')
+
+            echo "Upstream Version: $LATEST_VERSION"
+            echo "Current Version:  $CURRENT_VERSION"
+
+
+            # Compare and update
+            if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ] && [ -n "$CURRENT_VERSION" ]; then
+              echo "🚀 New version detected! Updating $SPEC_FILE..."
+
+              # Replace Version and reset Release
+              sed -i "s/^Version:.*/Version:        $LATEST_VERSION/" "$SPEC_FILE"
+              TIMESTAMP=$(date +%Y%m%d%H%M)
+              sed -i -E "s/^Release:.*/Release:        $TIMESTAMP%{?dist}/" "$SPEC_FILE"
+              git add "$SPEC_FILE"
+              CHANGES_MADE=1
+            else
+              echo "✅ Already up to date."
+            fi
+          done
+
+          echo "----------------------------------------"
+
+          # Commit and push if any files were changed
+          if [ "$CHANGES_MADE" -eq 1 ]; then
+            echo "Committing and pushing all updated spec files..."
+            git commit -m "chore: auto-update spec file versions"
+            
+            # Pull any new remote changes (rebase) before pushing to avoid conflicts
+            git pull --rebase origin main
+            git push origin main
+            
+            echo "Successfully pushed updates."
+          else
+            echo "No updates needed across all spec files."
+          fi
+
