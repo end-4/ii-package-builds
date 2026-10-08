@@ -2,11 +2,11 @@
 %global debug_package %{nil}
 %bcond_with         asan
 
-%global commit      7511545ee20664e3b8b8d3322c0ffe7567c56f7a
+%global commit      4f508be500dea6e5732cc3d50382a0048b17e7b1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commits     770
-%global snapdate    20260327
-%global tag         0.2.1
+%global commits     868
+%global snapdate    20261008
+%global tag         0.3.2
 
 Name:               quickshell-git
 Version:            %{tag}^%{commits}.git%{shortcommit}
