@@ -15,7 +15,7 @@ jobs:
       contents: write
 
     container:
-      image: fedora:44
+      image: fedora:45
 
     steps:
       - uses: actions/checkout@v4
